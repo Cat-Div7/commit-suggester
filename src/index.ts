@@ -40,7 +40,7 @@ export async function welcome() {
       chalk.gray("  ·  Smart Git Commit Tool  ·  ") +
       chalk.yellow("AI-Powered"),
   );
-  console.log(chalk.gray("  OpenAI  ·  Claude  ·  Gemini  ·  Ollama"));
+  console.log(chalk.gray("  Claude  ·  Openrouter  ·  Gemini  ·  Ollama"));
   console.log(
     chalk.dim(`  v${version}`) +
       chalk.dim("  ·  by  ·  ") +
