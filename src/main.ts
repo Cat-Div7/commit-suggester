@@ -34,7 +34,8 @@ export async function main(flags: Flags): Promise<void> {
     console.log(chalk.dim(`  Model    : ${JSON.stringify(data.model ?? {})}`));
 
     const keys = data.keys ?? {};
-    for (const [p, arr] of Object.entries(keys)) {
+    for (const [p, val] of Object.entries(keys)) {
+      const arr = Array.isArray(val) ? val : [val];
       const masked = (arr as string[]).map(
         (k) => k.slice(0, 6) + "..." + k.slice(-4),
       );
