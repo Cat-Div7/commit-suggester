@@ -5,12 +5,6 @@
 ██║   ██║██║   ██║       ██╔══██║██╔══██║██╔═══╝ ██╔═══╝ ██╔══╝  ██║╚██╗██║╚════██║
 ╚██████╔╝██║   ██║       ██║  ██║██║  ██║██║     ██║     ███████╗██║ ╚████║███████║
  ╚═════╝ ╚═╝   ╚═╝       ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝     ╚═╝     ╚══════╝╚═╝  ╚═══╝╚══════╝
-
-            _         _              _     _           _
-  ___ ___  | |__ _  _| |_   _ _  ___| |_  | |_ ___  __| |__ _ _  _   ___ ___
- |___|___| | '_ \ || |  _| | ' \/ _ \  _| |  _/ _ \/ _` / _` | || | |___|___|
-           |_.__/\_,_|\__| |_||_\___/\__|  \__\___/\__,_\__,_|\_, |
-                                                               |__/
 ```
 
 SGT is a CLI tool that analyzes your staged git changes and generates AI-powered commit message suggestions. It supports multiple LLM providers, saves your preferences, and handles API key fallbacks automatically.
