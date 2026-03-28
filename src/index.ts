@@ -14,6 +14,23 @@ export const flags = {
   config: args.includes("--config"),
 };
 
+if (args.includes("--help") || args.includes("-h")) {
+  console.log(`
+  SGT — Smart Git Commit Tool
+
+  Usage:
+    sgt                      Run with saved provider, model, and keys
+    sgt --change-model       Re-select model for current provider
+    sgt --change-key         Re-enter API key for current provider
+    sgt --change-provider    Re-select provider
+    sgt --add-key            Add a fallback key for current provider
+    sgt --reset              Clear all saved config
+    sgt --config             Show current saved config
+    sgt --help, -h           Show this help message
+  `);
+  process.exit(0);
+}
+
 (async () => {
   await welcome();
   await main(flags);
