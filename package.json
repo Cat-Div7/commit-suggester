@@ -31,11 +31,12 @@
     "conf": "^15.1.0",
     "dotenv": "^17.3.1",
     "figlet": "^1.11.0",
-    "inquirer": "^13.3.2",
+    "inquirer": "^8.2.7",
     "ora": "^9.3.0",
     "simple-git": "^3.33.0"
   },
   "devDependencies": {
+    "@types/inquirer": "^8.2.12",
     "@types/node": "^25.5.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
