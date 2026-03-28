@@ -26,7 +26,7 @@ ${diff}`;
           Authorization: `Bearer ${apiKey}`,
           "Content-Type": "application/json",
           "HTTP-Referer": "https://github.com/Cat-Div7/commit-suggester",
-          "X-Title": "SGT — Smart Git Commit Tool",
+          "X-Title": "SGT - Smart Git Commit Tool",
         },
         body: JSON.stringify({
           model,

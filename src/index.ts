@@ -14,6 +14,7 @@ export const flags = {
   config: args.includes("--config"),
 };
 
+// TODO: add --help flag to show usage instructions in readme file and welcome.ts file
 if (args.includes("--help") || args.includes("-h")) {
   console.log(`
   SGT — Smart Git Commit Tool

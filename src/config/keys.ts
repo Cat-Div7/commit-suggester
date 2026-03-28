@@ -26,7 +26,7 @@ async function validateKey(provider: Provider, key: string): Promise<boolean> {
     }
 
     if (provider === "OpenRouter") {
-      const res = await fetch("https://openrouter.ai/api/v1/models", {
+      const res = await fetch("https://openrouter.ai/api/v1/auth/key", {
         headers: { Authorization: `Bearer ${key}` },
       });
       if (!res.ok) throw new Error(`${res.status}`);
