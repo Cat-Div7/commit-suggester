@@ -117,7 +117,7 @@ SGT stores config at ~/.config/sgt-cli/config.json with the following shape:
 {
   "provider": "Gemini",
   "model": {
-    "Gemini": "gemini-2.0-flash",
+    "Gemini": "gemini-2.5-flash",
     "OpenRouter": "mistralai/mistral-7b-instruct",
     "Claude": "claude-3-5-sonnet-20240620",
     "Ollama": "llama3"

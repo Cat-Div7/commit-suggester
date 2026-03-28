@@ -3,7 +3,7 @@ export const PROVIDERS = ["Gemini", "Claude", "OpenRouter", "Ollama"] as const;
 export type Provider = (typeof PROVIDERS)[number];
 
 export const DEFAULT_MODELS: Record<Provider, string> = {
-  Gemini: "gemini-2.0-flash",
+  Gemini: "gemini-2.5-flash",
   Claude: "claude-3-5-sonnet-20240620",
   OpenRouter: "mistralai/mistral-7b-instruct",
   Ollama: "llama3",
