@@ -18,15 +18,15 @@ const renderFiglet = (text: string, font: string): Promise<string> =>
   });
 
 export async function welcome(): Promise<void> {
-  const [line1, line2] = await Promise.all([
-    renderFiglet("GIT  HAPPENS", "ANSI Shadow"),
-    renderFiglet("-- but not today --", "Small"),
+  const [line1] = await Promise.all([
+    renderFiglet("GIT HAPPENS", "ANSI Shadow"),
+    // renderFiglet("-- but not today --", "Small"),
   ]);
 
   console.clear();
   console.log("\n");
   console.log(chalk.bold.yellow(line1));
-  console.log(chalk.dim.yellow(line2));
+  // console.log(chalk.dim.yellow(line2));
 
   const width = 62;
   const divider = chalk.yellow("─".repeat(width));
