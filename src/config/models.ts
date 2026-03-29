@@ -1,13 +1,17 @@
 import chalk from "chalk";
-import inquirer from "inquirer";
 import store from "./store.js";
 import {
-  OPENROUTER_MODELS,
   DEFAULT_MODELS,
   OPENROUTER_MODELS_URL,
 } from "../constants.js";
 import type { Provider } from "../constants.js";
 import { terminalLink } from "../utils/terminalLink.js";
+import {
+  promptCustomModel,
+  promptDefaultModel,
+  promptOpenRouterModel,
+  promptSaveCustomModel,
+} from "../ui/prompts.js";
 
 export async function getModel(
   provider: Provider,
@@ -25,20 +29,7 @@ export async function getModel(
     const savedCustomModels: string[] =
       store.get("customModels.OpenRouter" as any) ?? [];
 
-    const allModels = [...OPENROUTER_MODELS, ...savedCustomModels];
-
-    const { selected } = await inquirer.prompt([
-      {
-        type: "list",
-        name: "selected",
-        message: "  Select an OpenRouter model:",
-        choices: [
-          ...allModels,
-          new inquirer.Separator(),
-          { name: "  Enter custom model", value: "__custom__" },
-        ],
-      },
-    ]);
+    const selected = await promptOpenRouterModel(savedCustomModels);
 
     if (selected === "__custom__") {
       console.log(
@@ -53,27 +44,10 @@ export async function getModel(
         ),
       );
 
-      const { customModel } = await inquirer.prompt([
-        {
-          type: "input",
-          name: "customModel",
-          message: "  Enter model name (e.g. org/model-name):",
-          validate: (input) =>
-            input.trim().length > 0 || "Model name cannot be empty.",
-        },
-      ]);
-
-      model = customModel.trim();
+      model = await promptCustomModel();
 
       // Ask if user wants to save custom model to list
-      const { save } = await inquirer.prompt([
-        {
-          type: "confirm",
-          name: "save",
-          message: "  Save this model to your list for future runs?",
-          default: true,
-        },
-      ]);
+      const save = await promptSaveCustomModel();
 
       if (save) {
         store.set("customModels.OpenRouter" as any, [
@@ -87,31 +61,7 @@ export async function getModel(
     }
   } else {
     // Gemini, Claude, Ollama — use default, confirm or override
-    const defaultModel = DEFAULT_MODELS[provider];
-
-    const { confirmed } = await inquirer.prompt([
-      {
-        type: "confirm",
-        name: "confirmed",
-        message: `  Use default model ${chalk.cyan(defaultModel)}?`,
-        default: true,
-      },
-    ]);
-
-    if (confirmed) {
-      model = defaultModel;
-    } else {
-      const { customModel } = await inquirer.prompt([
-        {
-          type: "input",
-          name: "customModel",
-          message: "  Enter model name:",
-          validate: (input) =>
-            input.trim().length > 0 || "Model name cannot be empty.",
-        },
-      ]);
-      model = customModel.trim();
-    }
+    model = await promptDefaultModel(provider, DEFAULT_MODELS[provider]);
   }
 
   store.set(`model.${provider}` as any, model);

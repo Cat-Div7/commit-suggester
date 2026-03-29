@@ -1,11 +1,11 @@
 import chalk from "chalk";
-import inquirer from "inquirer";
 import { config } from "dotenv";
 import store from "./store.js";
 import { ENV_KEY_MAP, PROVIDER_HINTS } from "../constants.js";
 import type { Provider } from "../constants.js";
 import { terminalLink } from "../utils/terminalLink.js";
 import { createSpinner, failSpinner, succeedSpinner } from "../ui/spinner.js";
+import { promptAddFallbackKey, promptApiKey } from "../ui/prompts.js";
 
 config(); // load .env
 
@@ -72,17 +72,8 @@ export async function getKeys(
         chalk.cyan(terminalLink(hint.link, hint.link)) +
         "\n",
     );
-    const { apiKey } = await inquirer.prompt([
-      {
-        type: "input",
-        name: "apiKey",
-        message: `  Enter your ${chalk.cyan(provider)} API key:`,
-        validate: (input) =>
-          input.trim().length > 0 || "API key cannot be empty.",
-      },
-    ]);
 
-    const trimmed = apiKey.trim();
+    const trimmed = await promptApiKey(provider);
     const isValid = await validateKey(provider, trimmed);
 
     if (!isValid) {
@@ -92,14 +83,7 @@ export async function getKeys(
 
     keys.push(trimmed);
 
-    const { addAnother } = await inquirer.prompt([
-      {
-        type: "confirm",
-        name: "addAnother",
-        message: "  Add a fallback key?",
-        default: false,
-      },
-    ]);
+    const addAnother = await promptAddFallbackKey();
 
     if (!addAnother) break;
   }
@@ -111,17 +95,7 @@ export async function getKeys(
 export async function addFallbackKey(provider: Provider): Promise<void> {
   const saved: string[] = store.get(`keys.${provider}` as any) ?? [];
 
-  const { apiKey } = await inquirer.prompt([
-    {
-      type: "input",
-      name: "apiKey",
-      message: `  Enter fallback key for ${chalk.cyan(provider)}:`,
-      validate: (input) =>
-        input.trim().length > 0 || "API key cannot be empty.",
-    },
-  ]);
-
-  const trimmed = apiKey.trim();
+  const trimmed = await promptApiKey(provider);
   const isValid = await validateKey(provider, trimmed);
 
   if (isValid) {

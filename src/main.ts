@@ -1,5 +1,4 @@
 import chalk from "chalk";
-import inquirer from "inquirer";
 import { checkGitRepo } from "./git/checkRepo.js";
 import { getDiff } from "./git/getDiff.js";
 import { generate } from "./providers/index.js";
@@ -8,6 +7,11 @@ import { getModel } from "./config/models.js";
 import { PROVIDERS } from "./constants.js";
 import type { Provider } from "./constants.js";
 import store from "./config/store.js";
+import {
+  promptCommitChoice,
+  promptManualCommit,
+  promptProvider,
+} from "./ui/prompts.js";
 
 export interface Flags {
   changeModel: boolean;
@@ -52,15 +56,7 @@ export async function main(flags: Flags): Promise<void> {
   // --change-provider or no saved provider
   let provider = store.get("provider" as any) as Provider | undefined;
   if (!provider || flags.changeProvider) {
-    const { selected } = await inquirer.prompt([
-      {
-        type: "list",
-        name: "selected",
-        message: "  Select a provider:",
-        choices: PROVIDERS,
-      },
-    ]);
-    provider = selected as Provider;
+    provider = await promptProvider();
     store.set("provider" as any, provider);
   } else {
     console.log(chalk.dim(`  Provider : ${provider}`));
@@ -85,19 +81,7 @@ export async function main(flags: Flags): Promise<void> {
   const suggestions = await generate(provider, model, keys, diff);
 
   // Present suggestions
-  const { selectedMessage } = await inquirer.prompt([
-    {
-      type: "list",
-      name: "selectedMessage",
-      message: "  Choose a commit message:",
-      choices: [
-        ...suggestions,
-        new inquirer.Separator(),
-        { name: "  Edit manually", value: "edit" },
-        { name: "  Cancel", value: "cancel" },
-      ],
-    },
-  ]);
+  const selectedMessage = await promptCommitChoice(suggestions);
 
   if (selectedMessage === "cancel") {
     console.log(chalk.yellow("\n  Commit cancelled.\n"));
@@ -107,16 +91,7 @@ export async function main(flags: Flags): Promise<void> {
   let finalMessage = selectedMessage;
 
   if (selectedMessage === "edit") {
-    const { manualMessage } = await inquirer.prompt([
-      {
-        type: "input",
-        name: "manualMessage",
-        message: "  Enter your commit message:",
-        validate: (input) =>
-          input.trim().length > 0 || "Message cannot be empty.",
-      },
-    ]);
-    finalMessage = manualMessage.trim();
+    finalMessage = await promptManualCommit();
   }
 
   // Commit
