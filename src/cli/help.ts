@@ -12,7 +12,8 @@ export function showHelp(): void {
     ${chalk.cyan("sgt --add-key")}             Add a fallback key for current provider
     ${chalk.cyan("sgt --reset")}               Clear all saved config
     ${chalk.cyan("sgt --config")}              Show current saved config
-    ${chalk.cyan("sgt --auto-commit")}         Auto pick best suggestion and commit
+    ${chalk.cyan("sgt --auto-commit")}         Auto pick best suggestion and commit silently
+                                  ${chalk.dim("(makes an extra AI call to pick the best one)")} 
     ${chalk.cyan("sgt --toggle-welcome")}      Toggle the GIT HAPPENS header on/off
     ${chalk.cyan("sgt --help, -h")}            Show this help message
   `);

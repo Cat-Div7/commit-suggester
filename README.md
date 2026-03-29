@@ -100,9 +100,16 @@ Your selected model is saved per provider and reused on the next run.
 | `sgt --add-key`         | Add a fallback key for the current provider         |
 | `sgt --reset`           | Clear all saved config and start fresh              |
 | `sgt --config`          | Show current saved provider, model, and masked keys |
-| `sgt --auto-commit`     | Auto pick best suggestion and commit silently       |
+| `sgt --auto-commit`     | Auto commit using best AI suggestion                |
 | `sgt --toggle-welcome`  | Toggle the GIT HAPPENS header on/off                |
 | `sgt --help, -h`        | Show usage instructions                             |
+
+> [!IMPORTANT]
+> `--auto-commit` sends two AI requests:
+>
+> 1. Generate suggestions
+> 2. Pick the best one  
+>    This will consume more API quota.
 
 ---
 
