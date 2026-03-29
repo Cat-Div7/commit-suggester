@@ -1,6 +1,6 @@
 import { simpleGit } from "simple-git";
 import chalk from "chalk";
-import ora from "ora";
+import { createSpinner, succeedSpinner } from "../ui/spinner";
 
 const git = simpleGit();
 
@@ -16,10 +16,10 @@ export async function getDiff(): Promise<string> {
   const fileDiffs: { file: string; diff: string }[] = [];
 
   for (const file of status.staged) {
-    const spinner = ora(`  Reading ${chalk.cyan(file)}...`).start();
+    const spinner = createSpinner(`  Reading ${chalk.cyan(file)}...`).start();
     const diff = await git.diff(["--cached", file]);
     fileDiffs.push({ file, diff });
-    spinner.succeed(chalk.green(`  ${file} analyzed`));
+    succeedSpinner(spinner, `  ${file} analyzed`);
   }
 
   return fileDiffs

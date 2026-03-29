@@ -1,13 +1,14 @@
 import Anthropic from "@anthropic-ai/sdk";
-import chalk from "chalk";
-import ora from "ora";
+import { createSpinner, failSpinner, succeedSpinner } from "../ui/spinner";
 
 export async function generateWithClaude(
   apiKey: string,
   model: string,
-  diff: string
+  diff: string,
 ): Promise<string[]> {
-  const spinner = ora(chalk.blue(`  Generating suggestions with Claude (${model})...`)).start();
+  const spinner = createSpinner(
+    `  Generating suggestions with Claude (${model})...`,
+  ).start();
 
   try {
     const client = new Anthropic({ apiKey });
@@ -27,7 +28,7 @@ ${diff}`;
 
     const text = (response.content[0] as { text: string }).text;
 
-    spinner.succeed(chalk.green("  Suggestions generated!"));
+    succeedSpinner(spinner, "  Suggestions generated!");
 
     return text
       .trim()
@@ -36,7 +37,7 @@ ${diff}`;
       .filter((l) => l.length > 0)
       .slice(0, 3);
   } catch (err: any) {
-    spinner.fail(chalk.red(`  Claude generation failed: ${err.message}`));
+    failSpinner(spinner, `  Claude generation failed: ${err.message}`);
     process.exit(1);
   }
 }

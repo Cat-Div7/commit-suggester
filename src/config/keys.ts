@@ -1,11 +1,11 @@
 import chalk from "chalk";
 import inquirer from "inquirer";
-import ora from "ora";
 import { config } from "dotenv";
 import store from "./store.js";
 import { ENV_KEY_MAP, PROVIDER_HINTS } from "../constants.js";
 import type { Provider } from "../constants.js";
 import { terminalLink } from "../utils/terminalLink.js";
+import { createSpinner, failSpinner, succeedSpinner } from "../ui/spinner.js";
 
 config(); // load .env
 
@@ -14,7 +14,7 @@ function maskKey(key: string): string {
 }
 
 async function validateKey(provider: Provider, key: string): Promise<boolean> {
-  const spinner = ora(`  Validating ${provider} key...`).start();
+  const spinner = createSpinner(`  Validating ${provider} key...`).start();
 
   try {
     if (provider === "Gemini" && (!key.startsWith("AIza") || key.length < 30))
@@ -33,14 +33,14 @@ async function validateKey(provider: Provider, key: string): Promise<boolean> {
       if (!res.ok) throw new Error(`${res.status}`);
     }
 
-    spinner.succeed(chalk.green(`  ${provider} key valid — ${maskKey(key)}`));
+    succeedSpinner(spinner, `  ${provider} key valid — ${maskKey(key)}`);
     return true;
   } catch (err: any) {
     const status = err?.status ?? err?.response?.status;
     if (status === 401 || status === 403) {
-      spinner.fail(chalk.red(`  Invalid key for ${provider}.`));
+      failSpinner(spinner, `  Invalid key for ${provider}.`);
     } else {
-      spinner.fail(chalk.red(`  Validation failed: ${err.message}`));
+      failSpinner(spinner, `  Validation failed: ${err.message}`);
     }
     return false;
   }

@@ -1,13 +1,13 @@
 import chalk from "chalk";
-import ora from "ora";
+import { createSpinner, failSpinner, succeedSpinner } from "../ui/spinner";
 
 export async function generateWithOpenRouter(
   apiKey: string,
   model: string,
   diff: string,
 ): Promise<string[]> {
-  const spinner = ora(
-    chalk.blue(`  Generating suggestions with OpenRouter (${model})...`),
+  const spinner = createSpinner(
+    `  Generating suggestions with OpenRouter (${model})...`,
   ).start();
 
   try {
@@ -49,7 +49,7 @@ ${diff}`;
       throw new Error("Empty response from OpenRouter.");
     }
 
-    spinner.succeed(chalk.green("  Suggestions generated!"));
+    succeedSpinner(spinner, "  Suggestions generated!");
 
     return text
       .trim()
@@ -58,7 +58,7 @@ ${diff}`;
       .filter((l) => l.length > 0)
       .slice(0, 3);
   } catch (err: any) {
-    spinner.fail(chalk.red(`  OpenRouter generation failed: ${err.message}`));
+    failSpinner(spinner, `  OpenRouter generation failed: ${err.message}`);
     process.exit(1);
   }
 }

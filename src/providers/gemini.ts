@@ -1,13 +1,15 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import chalk from "chalk";
-import ora from "ora";
+import { createSpinner, failSpinner, succeedSpinner } from "../ui/spinner";
 
 export async function generateWithGemini(
   apiKey: string,
   model: string,
-  diff: string
+  diff: string,
 ): Promise<string[]> {
-  const spinner = ora(chalk.blue(`  Generating suggestions with Gemini (${model})...`)).start();
+  const spinner = createSpinner(
+    `  Generating suggestions with Gemini (${model})...`,
+  ).start();
 
   try {
     const genAI = new GoogleGenerativeAI(apiKey);
@@ -23,7 +25,7 @@ ${diff}`;
     const result = await geminiModel.generateContent(prompt);
     const text = result.response.text();
 
-    spinner.succeed(chalk.green("  Suggestions generated!"));
+    succeedSpinner(spinner, chalk.green("  Suggestions generated!"));
 
     return text
       .trim()
@@ -32,7 +34,7 @@ ${diff}`;
       .filter((l) => l.length > 0)
       .slice(0, 3);
   } catch (err: any) {
-    spinner.fail(chalk.red(`  Gemini generation failed: ${err.message}`));
+    failSpinner(spinner, `  Gemini generation failed: ${err.message}`);
     process.exit(1);
   }
 }

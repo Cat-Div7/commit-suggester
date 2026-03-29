@@ -1,12 +1,12 @@
 import chalk from "chalk";
-import ora from "ora";
+import { createSpinner, failSpinner, succeedSpinner } from "../ui/spinner";
 
 export async function generateWithOllama(
   model: string,
   diff: string,
 ): Promise<string[]> {
-  const spinner = ora(
-    chalk.blue(`  Generating suggestions with Ollama (${model})...`),
+  const spinner = createSpinner(
+    `  Generating suggestions with Ollama (${model})...`,
   ).start();
 
   try {
@@ -40,7 +40,7 @@ ${diff}`;
       throw new Error("Empty response from Ollama.");
     }
 
-    spinner.succeed(chalk.green("  Suggestions generated!"));
+    succeedSpinner(spinner, "  Suggestions generated!");
 
     return text
       .trim()
@@ -49,7 +49,7 @@ ${diff}`;
       .filter((l) => l.length > 0)
       .slice(0, 3);
   } catch (err: any) {
-    spinner.fail(chalk.red(`  Ollama generation failed: ${err.message}`));
+    failSpinner(spinner, `  Ollama generation failed: ${err.message}`);
     console.log(chalk.gray("  Is Ollama running? Try: ollama serve"));
     process.exit(1);
   }
