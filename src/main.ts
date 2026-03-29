@@ -47,6 +47,14 @@ export async function main(flags: Flags): Promise<void> {
       );
       console.log(chalk.dim(`  ${p} keys : ${masked.join(", ")}`));
     }
+
+    const showWelcome = data.showWelcome ?? true;
+    console.log(
+      chalk.dim(
+        `  GIT HAPPENS header : ${showWelcome ? "enabled" : "disabled"}`,
+      ),
+    );
+
     console.log();
     process.exit(0);
   }
