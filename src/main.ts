@@ -11,6 +11,7 @@ import {
   promptManualCommit,
   promptProvider,
 } from "./ui/prompts.js";
+import { pickBestSuggestion } from "./providers/autoCommit.js";
 
 export interface Flags {
   changeModel: boolean;
@@ -81,6 +82,28 @@ export async function main(flags: Flags): Promise<void> {
   // Generate suggestions
   const suggestions = await generate(provider, model, keys, diff);
 
+  // --auto-commit
+  if (flags.autoCommit) {
+    const { message, reason } = await pickBestSuggestion(
+      provider,
+      model,
+      keys,
+      diff,
+      suggestions,
+    );
+
+    const git = (await import("simple-git")).simpleGit();
+    try {
+      await git.commit(message);
+      console.log(chalk.bold.green("\n  Committed successfully!"));
+      console.log(chalk.white(`  Message : "${message}"`));
+      console.log(chalk.dim(`  Reason  : ${reason}\n`));
+    } catch (err: any) {
+      console.log(chalk.red(`\n  Commit failed: ${err.message}\n`));
+      process.exit(1);
+    }
+    process.exit(0);
+  }
   // Present suggestions
   const selectedMessage = await promptCommitChoice(suggestions);
 
