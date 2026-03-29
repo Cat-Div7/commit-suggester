@@ -7,7 +7,7 @@ import { terminalLink } from "../utils/terminalLink.js";
 import { createSpinner, failSpinner, succeedSpinner } from "../ui/spinner.js";
 import { promptAddFallbackKey, promptApiKey } from "../ui/prompts.js";
 
-config(); // load .env
+config({ quiet: true }); // load .env
 
 function maskKey(key: string): string {
   return key.slice(0, 6) + "..." + key.slice(-4);
