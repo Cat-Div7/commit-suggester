@@ -1,24 +1,43 @@
 {
-  "name": "commit-suggester",
+  "name": "sgt-cli",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "build": "tsc",
-    "start": "node dist/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "description": "AI-powered git commit message suggester — supports Gemini, Claude, OpenRouter, and Ollama",
+  "main": "dist/index.js",
+  "type": "module",
   "bin": {
     "sgt": "./dist/index.js"
   },
+  "files": [
+    "dist",
+    "package.json",
+    "README.md",
+    ".env.example"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "git",
+    "commit",
+    "ai",
+    "cli",
+    "gemini",
+    "claude",
+    "openrouter",
+    "ollama",
+    "conventional-commits"
+  ],
+  "author": "Omar Ashraf <github.com/Cat-Div7>",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Cat-Div7/commit-suggester.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "module",
   "bugs": {
     "url": "https://github.com/Cat-Div7/commit-suggester/issues"
   },
@@ -38,6 +57,7 @@
   "devDependencies": {
     "@types/inquirer": "^8.2.12",
     "@types/node": "^25.5.0",
+    "@types/figlet": "^1.5.8",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
   }
