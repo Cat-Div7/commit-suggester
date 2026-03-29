@@ -26,11 +26,18 @@ function printBar(): void {
       chalk.gray("  ·  Smart Git Commit Tool  ·  ") +
       chalk.yellow("AI-Powered"),
   );
+
   console.log(chalk.gray("  Claude  ·  OpenRouter  ·  Gemini  ·  Ollama"));
   console.log(
     chalk.dim(`  v${version}`) +
       chalk.dim("  ·  by  ·  ") +
       chalk.yellow(githubLink),
+  );
+
+  console.log(
+    chalk.dim("  Run ") +
+      chalk.cyan("sgt --help") +
+      chalk.dim(" to see all available commands."),
   );
   console.log(divider + "\n");
 }

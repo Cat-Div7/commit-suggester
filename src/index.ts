@@ -12,6 +12,7 @@ if (args.includes("--help") || args.includes("-h")) {
   process.exit(0);
 }
 
+// TODO: Prevent multiple flags
 (async () => {
   if (flags.toggleWelcome) {
     const current = store.get("showWelcome" as any) ?? true;
