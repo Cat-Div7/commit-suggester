@@ -1,6 +1,6 @@
 import { simpleGit } from "simple-git";
 import chalk from "chalk";
-import { createSpinner, succeedSpinner } from "../ui/spinner";
+import { createSpinner, succeedSpinner } from "../ui/spinner.js";
 
 const git = simpleGit();
 

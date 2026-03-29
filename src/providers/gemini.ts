@@ -1,6 +1,6 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import chalk from "chalk";
-import { createSpinner, failSpinner, succeedSpinner } from "../ui/spinner";
+import { createSpinner, failSpinner, succeedSpinner } from "../ui/spinner.js";
 
 export async function generateWithGemini(
   apiKey: string,

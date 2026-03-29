@@ -1,5 +1,5 @@
 import Anthropic from "@anthropic-ai/sdk";
-import { createSpinner, failSpinner, succeedSpinner } from "../ui/spinner";
+import { createSpinner, failSpinner, succeedSpinner } from "../ui/spinner.js";
 
 export async function generateWithClaude(
   apiKey: string,

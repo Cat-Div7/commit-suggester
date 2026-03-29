@@ -1,7 +1,7 @@
 import figlet from "figlet";
 import chalk from "chalk";
 import { createRequire } from "module";
-import { terminalLink } from "../utils/terminalLink";
+import { terminalLink } from "../utils/terminalLink.js";
 
 const require = createRequire(import.meta.url);
 const { version } = require("../../package.json") as { version: string };
