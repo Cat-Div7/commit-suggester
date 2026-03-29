@@ -7,6 +7,14 @@
  ╚═════╝ ╚═╝   ╚═╝       ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝     ╚═╝     ╚══════╝╚═╝  ╚═══╝╚══════╝
 ```
 
+<p align="center">
+  <img alt="npm version" src="https://img.shields.io/npm/v/sgt-cli?style=for-the-badge&color=CB3837&logo=npm&logoColor=white" />
+  <img alt="npm downloads" src="https://img.shields.io/npm/dm/sgt-cli?style=for-the-badge&color=2ea043&logo=npm&logoColor=white" />
+  <img alt="license" src="https://img.shields.io/github/license/Cat-Div7/commit-suggester?style=for-the-badge&color=blue" />
+  <img alt="last commit" src="https://img.shields.io/github/last-commit/Cat-Div7/commit-suggester?style=for-the-badge&color=6e40c9&logo=github&logoColor=white" />
+  <img alt="PRs welcome" src="https://img.shields.io/badge/PRs-welcome-brightgreen?style=for-the-badge&logo=github&logoColor=white" />
+</p>
+
 SGT is a CLI tool that analyzes your staged git changes and generates AI-powered commit message suggestions. It supports multiple LLM providers, saves your preferences, and handles API key fallbacks automatically.
 
 ---
