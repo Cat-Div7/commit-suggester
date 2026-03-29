@@ -7,7 +7,7 @@ import {
   OPENROUTER_MODELS_URL,
 } from "../constants.js";
 import type { Provider } from "../constants.js";
-import { terminalLink } from "../ui/welcome.js";
+import { terminalLink } from "../utils/terminalLink.js";
 
 export async function getModel(
   provider: Provider,

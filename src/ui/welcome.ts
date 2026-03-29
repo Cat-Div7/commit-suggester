@@ -1,13 +1,10 @@
 import figlet from "figlet";
 import chalk from "chalk";
 import { createRequire } from "module";
+import { terminalLink } from "../utils/terminalLink";
 
 const require = createRequire(import.meta.url);
 const { version } = require("../../package.json") as { version: string };
-
-export function terminalLink(text: string, url: string): string {
-  return `\u001B]8;;${url}\u0007${text}\u001B]8;;\u0007`;
-}
 
 const renderFiglet = (text: string, font: string): Promise<string> =>
   new Promise((resolve, reject) => {

@@ -5,7 +5,7 @@ import { config } from "dotenv";
 import store from "./store.js";
 import { ENV_KEY_MAP, PROVIDER_HINTS } from "../constants.js";
 import type { Provider } from "../constants.js";
-import { terminalLink } from "../ui/welcome.js";
+import { terminalLink } from "../utils/terminalLink.js";
 
 config(); // load .env
 
