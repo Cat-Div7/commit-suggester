@@ -4,16 +4,16 @@ import store from "./store.js";
 import {
   OPENROUTER_MODELS,
   DEFAULT_MODELS,
+  OPENROUTER_MODELS_URL,
 } from "../constants.js";
 import type { Provider } from "../constants.js";
+import { terminalLink } from "../ui/welcome.js";
 
 export async function getModel(
   provider: Provider,
-  forceNew = false
+  forceNew = false,
 ): Promise<string> {
-  const savedModel: string | undefined = store.get(
-    `model.${provider}` as any
-  );
+  const savedModel: string | undefined = store.get(`model.${provider}` as any);
 
   if (savedModel && !forceNew) {
     return savedModel;
@@ -41,6 +41,18 @@ export async function getModel(
     ]);
 
     if (selected === "__custom__") {
+      console.log(
+        chalk.dim("\n  Browse models at ") +
+          chalk.cyan(
+            terminalLink("openrouter.ai/models", OPENROUTER_MODELS_URL),
+          ),
+      );
+      console.log(
+        chalk.dim(
+          "  Copy the exact model ID — e.g. google/gemma-3-4b-it:free\n",
+        ),
+      );
+
       const { customModel } = await inquirer.prompt([
         {
           type: "input",

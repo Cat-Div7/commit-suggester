@@ -3,8 +3,9 @@ import inquirer from "inquirer";
 import ora from "ora";
 import { config } from "dotenv";
 import store from "./store.js";
-import { ENV_KEY_MAP } from "../constants.js";
+import { ENV_KEY_MAP, PROVIDER_HINTS } from "../constants.js";
 import type { Provider } from "../constants.js";
+import { terminalLink } from "../ui/welcome.js";
 
 config(); // load .env
 
@@ -65,6 +66,12 @@ export async function getKeys(
   const keys: string[] = [];
 
   while (true) {
+    const hint = PROVIDER_HINTS[provider];
+    console.log(
+      chalk.dim(`\n  ${hint.message} `) +
+        chalk.cyan(terminalLink(hint.link, hint.link)) +
+        "\n",
+    );
     const { apiKey } = await inquirer.prompt([
       {
         type: "input",

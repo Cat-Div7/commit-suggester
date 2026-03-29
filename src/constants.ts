@@ -26,3 +26,27 @@ export const ENV_KEY_MAP: Record<Provider, string> = {
   OpenRouter: "SGT_OPENROUTER_KEY",
   Ollama: "",
 };
+
+export const PROVIDER_HINTS: Record<
+  Provider,
+  { message: string; link: string }
+> = {
+  Gemini: {
+    message: "Get your free Gemini API key at",
+    link: "https://aistudio.google.com/app/apikey",
+  },
+  Claude: {
+    message: "Get your Claude API key at",
+    link: "https://console.anthropic.com",
+  },
+  OpenRouter: {
+    message: "Get your free OpenRouter API key at",
+    link: "https://openrouter.ai/keys",
+  },
+  Ollama: {
+    message: "Download and install Ollama from",
+    link: "https://ollama.com/download",
+  },
+};
+
+export const OPENROUTER_MODELS_URL = "https://openrouter.ai/models";

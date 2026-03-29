@@ -5,7 +5,7 @@ import { createRequire } from "module";
 const require = createRequire(import.meta.url);
 const { version } = require("../../package.json") as { version: string };
 
-function terminalLink(text: string, url: string): string {
+export function terminalLink(text: string, url: string): string {
   return `\u001B]8;;${url}\u0007${text}\u001B]8;;\u0007`;
 }
 
