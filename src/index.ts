@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { welcome } from "./ui/welcome.js";
+import { welcomeFull, welcomeBar } from "./ui/welcome.js";
 import { main } from "./main.js";
 
 const args = process.argv.slice(2);
@@ -32,7 +32,9 @@ if (args.includes("--help") || args.includes("-h")) {
   process.exit(0);
 }
 
+const isFullWelcome = args.length === 0 || args.includes("--auto-commit");
+
 (async () => {
-  await welcome();
+  isFullWelcome ? await welcomeFull() : await welcomeBar();
   await main(flags);
 })();
