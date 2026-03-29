@@ -7,6 +7,7 @@ export interface SGTConfig {
   model?: Record<string, string>;
   keys?: Record<string, string[]>;
   customModels?: Record<string, string[]>;
+  showWelcome?: boolean;
 }
 
 const store = new Conf<SGTConfig>({

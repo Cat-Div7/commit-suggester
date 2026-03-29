@@ -4,7 +4,6 @@ import { getDiff } from "./git/getDiff.js";
 import { generate } from "./providers/index.js";
 import { getKeys, addFallbackKey } from "./config/keys.js";
 import { getModel } from "./config/models.js";
-import { PROVIDERS } from "./constants.js";
 import type { Provider } from "./constants.js";
 import store from "./config/store.js";
 import {
@@ -20,6 +19,8 @@ export interface Flags {
   addKey: boolean;
   reset: boolean;
   config: boolean;
+  autoCommit: boolean;
+  toggleWelcome: boolean;
 }
 
 export async function main(flags: Flags): Promise<void> {
