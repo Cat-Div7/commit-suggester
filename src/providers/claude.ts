@@ -41,3 +41,19 @@ ${diff}`;
     process.exit(1);
   }
 }
+
+export async function generateRawWithClaude(
+  apiKey: string,
+  model: string,
+  prompt: string,
+): Promise<string> {
+  const client = new Anthropic({ apiKey });
+  const response = await client.messages.create({
+    model,
+    max_tokens: 1024,
+    messages: [{ role: "user", content: prompt }],
+  });
+  const block = response.content[0];
+  if (!block || block.type !== "text") throw new Error("Unexpected response.");
+  return block.text;
+}

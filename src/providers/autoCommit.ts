@@ -1,9 +1,8 @@
-import chalk from "chalk";
-import { createSpinner, succeedSpinner, failSpinner } from "../ui/spinner.js";
+import { createSpinner, succeedSpinner } from "../ui/spinner.js";
 import type { Provider } from "../constants.js";
-import { generateWithGemini } from "./gemini.js";
-import { generateWithClaude } from "./claude.js";
-import { generateWithOpenRouter } from "./openrouter.js";
+import { generateRawWithGemini } from "./gemini.js";
+import { generateRawWithClaude } from "./claude.js";
+import { generateRawWithOpenRouter } from "./openrouter.js";
 
 export async function pickBestSuggestion(
   provider: Provider,
@@ -31,14 +30,11 @@ ${diff}`;
     let raw = "";
 
     if (provider === "Gemini") {
-      const result = await generateWithGemini(keys[0]!, model, prompt);
-      raw = result[0] ?? "";
+      raw = await generateRawWithGemini(keys[0]!, model, prompt);
     } else if (provider === "Claude") {
-      const result = await generateWithClaude(keys[0]!, model, prompt);
-      raw = result[0] ?? "";
+      raw = await generateRawWithClaude(keys[0]!, model, prompt);
     } else if (provider === "OpenRouter") {
-      const result = await generateWithOpenRouter(keys[0]!, model, prompt);
-      raw = result[0] ?? "";
+      raw = await generateRawWithOpenRouter(keys[0]!, model, prompt);
     } else {
       // Ollama — just pick first suggestion, no second call
       succeedSpinner(spinner, "  Best suggestion picked.");
