@@ -91,15 +91,18 @@ Your selected model is saved per provider and reused on the next run.
 
 ## CLI Flags
 
-| Flag                    | Description                                           |
-|-------------------------|-------------------------------------------------------|
-| `sgt`                   | Normal run using saved provider, model, and keys      |
-| `sgt --change-model`    | Re-prompt model selection for current provider        |
-| `sgt --change-key`      | Re-prompt API key for current provider                |
-| `sgt --change-provider` | Re-prompt provider selection                          |
-| `sgt --add-key`         | Add a fallback key for the current provider           |
-| `sgt --reset`           | Clear all saved config and start fresh                |
-| `sgt --config`          | Show current saved provider, model, and masked keys   |
+| Flag                    | Description                                         |
+| ----------------------- | --------------------------------------------------- |
+| `sgt`                   | Normal run using saved provider, model, and keys    |
+| `sgt --change-model`    | Re-prompt model selection for current provider      |
+| `sgt --change-key`      | Re-prompt API key for current provider              |
+| `sgt --change-provider` | Re-prompt provider selection                        |
+| `sgt --add-key`         | Add a fallback key for the current provider         |
+| `sgt --reset`           | Clear all saved config and start fresh              |
+| `sgt --config`          | Show current saved provider, model, and masked keys |
+| `sgt --auto-commit`     | Auto pick best suggestion and commit silently       |
+| `sgt --toggle-welcome`  | Toggle the GIT HAPPENS header on/off                |
+| `sgt --help, -h`        | Show usage instructions                             |
 
 ---
 
@@ -172,11 +175,11 @@ commit-suggester/
 
 ## Scripts
 
-| Command         | Description                  |
-|-----------------|------------------------------|
-| `npm run build` | Compile TypeScript to dist/  |
-| `npm start`     | Run the compiled CLI         |
-| `npm link`      | Link sgt command globally    |
+| Command         | Description                 |
+| --------------- | --------------------------- |
+| `npm run build` | Compile TypeScript to dist/ |
+| `npm start`     | Run the compiled CLI        |
+| `npm link`      | Link sgt command globally   |
 
 ---
 
@@ -186,8 +189,14 @@ commit-suggester/
 - Phase 2 — Provider integration (Gemini, Claude, OpenRouter, Ollama)
 - Phase 3 — Config and key management (fallback keys, model saving, custom models)
 - Phase 4 — CLI flags (--change-model, --change-key, --reset, --config, etc.)
-- Phase 5 — UX polish (prompts, spinners, masked key display, error hints)
+- Phase 5 — UX polish (prompts, spinners, provider hints, welcome split, --toggle-welcome)
 - Phase 6 — Release (npm publish, versioning, GitHub release)
+
+## Upcoming
+
+- git sgt alias via --setup-alias
+- Web dashboard with AI provider and model tracking (if needed)
+- --config display with formatted table (based on user feedback)
 
 ---
 
