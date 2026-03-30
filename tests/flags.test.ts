@@ -1,13 +1,14 @@
-describe("flags parsing", () => {
-  // add beforeeach here to clear the cache
+async function loadFlags(argv: string[]) {
+  jest.resetModules();
+  process.argv = argv;
+  return await import("../src/cli/flags.js");
+}
 
+describe("flags parsing", () => {
   it("should return all flags as false when no flags are provided", async () => {
-    // Clear cache
-    jest.resetModules();
-    // mock data for process.argv
-    process.argv = ["node", "sgt"];
     // Importing the flags
-    const { flags } = await import("../src/cli/flags.js");
+    console.log(await loadFlags(['node', 'sgt']))
+    const { flags } = await loadFlags(["node", "sgt"]);
     expect(flags).toEqual({
       changeModel: false,
       changeKey: false,
@@ -18,5 +19,13 @@ describe("flags parsing", () => {
       autoCommit: false,
       toggleWelcome: false,
     });
+  });
+  
+  it("should return --auto-commit flag as true", async () => {
+    // Importing the flags
+    console.log(await loadFlags(['node', 'sgt', '--auto-commit']))
+    const { flags } = await loadFlags(["node", "sgt", "--auto-commit"]);
+    expect(flags.autoCommit).toBe(true);
+    expect(flags.changeProvider).toBe(false);
   });
 });
